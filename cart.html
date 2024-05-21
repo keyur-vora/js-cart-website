@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="assets/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/style.css">lk ,,
+  <link rel="stylesheet" href="assets/css/cart.css">
+</head>
+
+<body>
+  <nav class="navbar bg-light border-bottom border-body position-fixed top-0"
+    style="box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 10px; width: 100%; z-index: 4441;" data-bs-theme="dark">
+    <div class="container align-items-center d-flex">
+      <div class="logo">
+        <img src="assets/img/logo.png" alt="" style="width: 150px;">
+      </div>
+      <div class="nav-link text-uppercase fw-semibold d-flex justify-content-between">
+        <ul class="d-flex">
+          <li class="pt-4">
+            <a href="index.html">home</a>
+          </li>
+          <li class="pt-4">
+            <a href="">shop</a>
+          </li>
+          <li class="pt-4">
+            <a href="">page</a>
+          </li>
+          <li class="pt-4">
+            <a href="">featured</a>
+          </li>
+          <li class="pt-4">
+            <a href="">mega menu</a>
+          </li>
+        </ul>
+      </div>
+      <div class="nav-icon">
+        <a href="cart.html" class=" text-center fs-4 text-dark rounded-2 border"><i
+            class=" pt-3 fa-solid fa-cart-shopping" style="height: 50px; width: 50px;"></i></a>
+        <a href="" class=" text-center fs-4 text-dark rounded-2 border"><i class=" pt-3 fa-regular fa-user"
+            style="height: 50px; width: 50px;"></i></a>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="table-cart mt-5">
+          <table width="100%">
+            <thead>
+              <tr>
+                <td>Remove</td>
+                <td>Image</td>
+                <td>price</td>
+                <td>how much you want</td>
+                <td>total</td>
+              </tr>
+            </thead>
+            <tbody id="cart" class="text-center"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div>
+          
+          <div class="total-price d-flex justify-content-end">
+            <table class="justify-content-end" style="display: flexbox; width: 300px;">
+              <tr>
+                <td>Subtotal</td>
+                <td id="subtotal">$0.00</td>
+              </tr>
+              <tr class="px-5">
+                <td>Tax</td>
+                <td id="tax">$0.00</td>
+              </tr>
+              <tr>
+                <td>Total</td>
+                <td id="total">$0.00</td>
+              </tr>
+            </table>
+            <button class="chackbtn" onclick="buy()"ś id="chackoutbtn">
+              check out
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer py-5" style="position: static; bottom:0;">
+    <div class="contain">
+      <div class="col">
+        <h1>Company</h1>
+        <ul>
+          <li>About</li>
+          <li>Mission</li>
+          <li>Services</li>
+          <li>Social</li>
+          <li>Get in touch</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h1>Products</h1>
+        <ul>
+          <li>About</li>
+          <li>Mission</li>
+          <li>Services</li>
+          <li>Social</li>
+          <li>Get in touch</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h1>Accounts</h1>
+        <ul>
+          <li>About</li>
+          <li>Mission</li>
+          <li>Services</li>
+          <li>Social</li>
+          <li>Get in touch</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h1>Resources</h1>
+        <ul>
+          <li>Webmail</li>
+          <li>Redeem code</li>
+          <li>WHOIS lookup</li>
+          <li>Site map</li>
+          <li>Web templates</li>
+          <li>Email templates</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h1>Support</h1>
+        <ul>
+          <li>Contact us</li>
+          <li>Web chat</li>
+          <li>Open ticket</li>
+        </ul>
+      </div>
+      <div class="col social">
+        <h1>Social</h1>
+        <ul>
+          <li><i class=" fs-3 fa-brands fa-instagram"></i></li>
+          <li><i class=" fs-3 fa-solid fa-envelope"></i></li>
+          <li><i class=" fs-3 fa-solid fa-phone"></i></li>
+        </ul>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+
+  <script>
+
+    const getCart = () => {
+      let data = JSON.parse(localStorage.getItem('cart'));
+      let tbl = "";
+      let sum = 0;
+
+      data.map((c) => {
+
+        let subtotal = (c.price * c.qty).toFixed(2);
+        sum += parseFloat(subtotal);
+
+        return (
+          tbl +=
+          `
+            <tr>
+              <td>
+                <a href="#" onclick="{delet(${c.id})}"><i class="fa-solid fa-trash-can"></i></a>
+              </td>
+              <td>
+                <div class="cart-info">
+                  <img src="${c.image}" alt="">
+                  <div>
+                    <p>${c.name}</p>
+                  </div>
+                </div>
+              </td>
+              <td style=" font-size: 20px; font-weight: 400;">${c.price}</td>
+              <td style="width:15%">
+                <input  style="width:90px;text-align:center;font-size:25px;" id="qty_${c.id}" onchange="editcart(${c.id})" type="number" class="form-control" value="${c.qty}">
+              </td>
+              <td>$${subtotal}</td>
+            </tr>
+
+            `
+        )
+      });
+      document.getElementById("cart").innerHTML = tbl;
+      updateTotals(sum);
+
+    }
+
+    function delet(id) {
+      let data = JSON.parse(localStorage.getItem('cart'));
+      let deleteuser = data.filter((c) => c.id !== id);
+      localStorage.setItem('cart', JSON.stringify(deleteuser));
+      getCart();
+    }
+
+
+    const editcart = id => {
+      let editid = document.getElementById(`qty_${id}`).value;
+      let cartdata = JSON.parse(localStorage.getItem("cart"));
+
+
+      if (editid > 0) {
+        cartdata.map(item => {
+          if (item.id == id) {
+            item.qty = editid;
+          }
+        });
+        localStorage.setItem("cart", JSON.stringify(cartdata));
+        console.log(cartdata);
+      } else {
+        alert("Minimum 1 order require...");
+        document.getElementById(`qty_${id}`).value = 1;
+        return false;
+      }
+      getCart();
+    };
+
+    const updateTotals = (sum) => {
+      let subtotal = sum.toFixed(2);
+      let tax = (sum * 0.05).toFixed(2);
+      let total = (sum + parseFloat(tax)).toFixed(2);
+
+      document.getElementById('subtotal').innerText = `$${subtotal}`;
+      document.getElementById('tax').innerText = `$${tax}`;
+      document.getElementById('total').innerText = `$${total}`;
+    };
+
+
+    document.getElementById("chackoutbtn");
+    
+      function buy(){
+        alert("your order has been placed")
+      }
+
+
+    getCart();
+  </script>
+
+  <script src="assets/js/bootstrap.min.js"></script>
+</body>
+
+</html>
